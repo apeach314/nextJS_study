@@ -1,23 +1,26 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
-
-const inter = Inter({ subsets: ["latin"] });
-
-function Count() {
+import { Counter } from "../components/Count";
+import { useState } from "react";
+function CounterDummy({ value, onChangeValue }) {
   return (
-    <div>
-      0 <input type="button" value="+"></input>
-    </div>
+    <>
+      {value}{" "}
+      <input type="button" value="+" onClick={() => onChangeValue(value + 1)} />
+    </>
   );
 }
 
 export default function Home() {
+  const [cnt, setCnt] = useState(10);
   return (
     <>
-      <Count></Count> <br />
-      <Count></Count>
+      <h1>COUNTER</h1>
+      <Counter down={true}></Counter> <br />
+      <CounterDummy
+        value={cnt}
+        onChangeValue={(oldValue) => {
+          setCnt(oldValue);
+        }}
+      ></CounterDummy>
     </>
   );
 }
